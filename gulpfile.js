@@ -9,7 +9,7 @@ var gulp = require('gulp'),
   livereload = require('gulp-livereload');
 
 /*
-* Configuración de la tarea 'minified'
+* Tareas
 */
 gulp.task('minified', function () {
   gulp.src('public/javascripts/*.js')
@@ -30,15 +30,15 @@ gulp.task('start', function () {
 
 
 gulp.task('restart', function() {
-	// listen for changes
+	// escuchando para cambios
 	livereload.listen();
-	// configure nodemon
+	// configurando nodemon
 	nodemon({
-		// the script to run the app
+		// Server Script
 		script: 'app.js',
 		ext: 'js'
 	}).on('restart', function(){
-		// when the app has restarted, run livereload.
+		// Cuando app.js se reinicia, corre livereload()
 		gulp.src('app.js')
 			.pipe(livereload())
 			.pipe(notify('Reloading page, please wait...'));
@@ -46,14 +46,17 @@ gulp.task('restart', function() {
 })
 
 gulp.task('restartinwatch', function() {
-	
-
+		
+		//Accede al App.js
 		gulp.src('app.js')
+			//Reinicia el app.js
 			.pipe(livereload())
+			//Envía una Notificacion a nivel de SO
 			.pipe(notify('Reloading page, please wait...'));
 })
 
+
 /*
-* Gulp Watch
+* Gulp Watch (Activa la Tarea al modificarse un archivo con la extensión especificada)
 */
 gulp.watch('*.js', ['restartinwatch']);
